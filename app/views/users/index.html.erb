@@ -1,0 +1,62 @@
+<div class="body">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-3">
+				<h2>User info</h2>
+				<%= attachment_image_tag @user , :profile_image, :fill,60, 60,format: 'jpeg', fallback: 'no_image.jpg' %>
+				<table class="table">
+					<tr>
+						<th>name</th>
+						<td><%= @user.name %></td>
+					</tr>
+					<tr>
+						<th>introduction</th>
+						<td><%= @user.introduction %></td>
+					</tr>
+				</table>
+				<% if @user.id === current_user.id %>
+				<div class="row">
+					<%= link_to  edit_user_path(@user.id) do %>
+					<span class="col-xs-12 edit-btn glyphicon glyphicon-cog" aria-hidden="true"></span>
+					<% end %>
+				</div>
+				<% else %>
+				<div class="row">
+					<%= link_to user_path(current_user.id) do %>
+					<span class="col-xs-12 edit-btn glyphicon glyphicon-cog" aria-hidden="true"></span>
+					<% end %>
+				</div>
+				<% end %>
+				<h2>New book</h2>
+				<%= form_for(@book) do |f| %>
+					<h4>Title</h4>
+					<%= f.text_field :title %>
+					<h4>Opinion</h4>
+					<%= f.text_field :body %>
+					<%= f.submit 'Create book' %>
+				<% end %>
+			</div>
+			<div class="col-xs-9">
+				<h2>Users</h2>
+				<table class="table table-hover table-inverse">
+					<thead>
+						<tr>
+							<th class="col-xs-3">image</th>
+							<th class="col-xs-3">name</th>
+							<th class="col-xs-3"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @users.each do |user| %>
+						<tr>
+						<td> <%= attachment_image_tag user , :profile_image, :fill,40, 40,format: 'jpeg', fallback: 'no_image.jpg' %></td>
+						<td><%= user.name %></td>
+						<td><%= link_to "show" , user_path(user.id) %></td>
+					    </tr>
+						<% end %>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

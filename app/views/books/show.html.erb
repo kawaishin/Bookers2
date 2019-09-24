@@ -1,0 +1,67 @@
+<div class="body">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-5">
+				<% if flash[:notice] %>
+				<p><%= flash[:notice] %></p>
+				<% end %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-3">
+				<h2>User info</h2>
+				<%= attachment_image_tag @post.user , :profile_image, 60, 60,format: 'jpeg', fallback: 'no_image.jpg' %>
+				<table class="table">
+					<tr>
+						<th>name</th>
+						<td><%= @post.user.name %></td>
+					</tr>
+					<tr>
+						<th>introduction</th>
+						<td><%= @post.user.introduction %></td>
+					</tr>
+				</table>
+				<% if @post.user.id === current_user.id %>
+				<div class="row">
+					<%= link_to  edit_user_path(@post.user.id) do %>
+					<span class="col-xs-12 edit-btn glyphicon glyphicon-cog" aria-hidden="true"></span>
+					<% end %>
+				</div>
+				<% else %>
+				<div class="row">
+					<%= link_to user_path(current_user.id) do %>
+					<span class="col-xs-12 edit-btn glyphicon glyphicon-cog" aria-hidden="true"></span>
+					<% end %>
+				</div>
+				<% end %>
+				<h2>New book</h2>
+				<%= form_for(@book) do |f| %>
+					<h4>Title</h4>
+					<%= f.text_field :title %>
+					<h4>Opinion</h4>
+					<%= f.text_field :body %>
+					<%= f.submit 'Create book' %>
+				<% end %>
+			</div>
+			<div class="col-xs-9">
+				<h2>Book detail</h2>
+				<table class="table table-hover table-inverse">
+				<tbody>
+						<tr>
+						<td> <%= attachment_image_tag @post.user , :profile_image, 40, 40,format: 'jpeg', fallback: 'no_image.jpg' %>
+							<br><%= link_to @post.user.name ,user_path(@post.user.id) %>
+						</td>
+						<td><%= link_to @post.title ,book_path(@post.id) %></td>
+						<td><%= @post.body %></td>
+						<% if @post.user.id === current_user.id %>
+						<td><%= link_to 'Edit', edit_book_path(@post.id), class: "btn-sm btn-success", data: {"turbolinks" => false} %></td>
+						<td><%= link_to 'Destroy', book_path(@post), method: :delete, data: {confirm: '本当に消しますか？'},
+						class: "btn-sm btn-danger" %></td>
+						<% end %>
+					    </tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

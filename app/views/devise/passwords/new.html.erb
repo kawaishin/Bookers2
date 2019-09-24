@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col-xs-5 col-xs-offset-1">
+		<h2>Forgot your password?</h2>
+	</div>
+</div>
+
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+  <div class="row">
+    <div class="col-xs-5 col-xs-offset-1">
+  		<%= render "devise/shared/error_messages", resource: resource %>
+  	</div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-5 col-xs-offset-1">
+	  <div class="field">
+	    <%= f.label :email %><br />
+	    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+	  </div>
+	</div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-5 col-xs-offset-1">
+	  <div class="actions">
+	    <%= f.submit "Send me reset password instructions" , :class => 'resetbtn' %>
+	  </div>
+	</div>
+</div>
+<% end %>
+<div class="row">
+    <div class="col-xs-5 col-xs-offset-1">
+		<%= render "devise/shared/links" %>
+	</div>
+</div>
+<footer>
+  <div class="container">
+    <div class="col-xs-3 col-xs-offset-9">
+      <p>CopyRight Infratop.inc</p>
+    </div>
+  </div>
+</footer>
